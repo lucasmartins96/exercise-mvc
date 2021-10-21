@@ -1,0 +1,21 @@
+const express = require('express');
+
+const categoriesController = require('./controllers/categories');
+
+const app = express();
+
+app.set('view engine', 'ejs');
+
+app.set('views', './views');
+
+app.get('/', (_req, res) => res.redirect('/categories'));
+
+app.get('/categories', categoriesController.listCategories);
+
+app.get('/jokes/:category', categoriesController.getJokeByCategory);
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Ouvindo a porta ${PORT}`);
+});
